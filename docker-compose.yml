@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: ./webapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USER: user
+      DATABASE_PASSWORD: password
+      DATABASE_NAME: mydatabase
+    volumes:
+      - ./webapp:/app
+      - /app/node_modules
+
+  db:
+    build:
+      context: ./sql
+    environment:
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./sql/mysql-init:/docker-entrypoint-initdb.d
+
+volumes:
+  db-data:
+
+networks:
+  default:
+    name: app-network
