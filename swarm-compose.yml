@@ -1,8 +1,7 @@
 version: '3.8'
 services:
   app:
-    build:
-      context: ./webapp
+    image: localhost:5001/webapp:latest
     ports:
       - "3000:3000"
     deploy:
@@ -19,8 +18,7 @@ services:
       - /app/node_modules
 
   db:
-    build:
-      context: ./sql
+    image: localhost:5001/mydatabase:latest
     environment:
       MYSQL_DATABASE: mydatabase
       MYSQL_USER: user

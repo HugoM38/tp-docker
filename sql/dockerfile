@@ -1,8 +1,14 @@
+# Utilisation de l'image officielle MySQL la plus récente comme base
 FROM mysql:latest
 
+# Définition de la variable d'environnement pour le nom de la base de données
 ENV MYSQL_DATABASE=mydatabase
+
+# Définition du mot de passe du super utilisateur (root) de MySQL
 ENV MYSQL_ROOT_PASSWORD=password
 
+# Ajout du fichier SQL de création de table dans le répertoire d'initialisation de MySQL
 ADD mysql-init/create_table.sql /docker-entrypoint-initdb.d
 
+# Exposition du port 3306 pour permettre aux applications externes de se connecter à MySQL
 EXPOSE 3306

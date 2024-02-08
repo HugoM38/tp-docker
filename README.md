@@ -1,5 +1,14 @@
 # tp-docker
 
+Structure : 
+
+ - sql : dossier contenant la partie database du projet 
+
+ - webapp : dossier contenant la partie application du projet
+
+ - / : dossier contenant l'ensemble du projet ainsi que les docker-compose.yml pour le docker compose et pour le swarm 
+
+
 # Partie 1
 
 Créer un réseau : docker network create tp-docker 
@@ -24,3 +33,27 @@ Lancer le docker compose : docker-compose up --build
 
 ------------------------------
 
+# Partie 3
+
+Créer un registry privé puis 
+
+Faire ceci dans le dossier webapp :
+
+    - docker build -t webapp:latest . 
+    - docker tag webapp:latest localhost:5001/webapp:latest
+    - docker push localhost:5001/webapp:latest
+
+Faire ceci dans le dossier sql :
+
+    - docker build -t mydatabase:latest . 
+    - docker tag mydatabase:latest localhost:5001/mydatabase:latest
+    - docker push localhost:5001/mydatabase:latest
+
+Ensuite aller dans le dossier initial : 
+
+    - docker swarm init
+    - docker stack deploy -c swarm-compose.yml webapp-stack  
+
+On peut vérifier les réplicas en faisant la commande : 
+
+    - docker stack services webapp-stack
