@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Articles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        article {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .date-publication {
+            font-size: 0.8em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Liste des Articles</h1>
+    <% articles.forEach(function(article) { %>
+        <article>
+            <h2><%= article.titre %></h2>
+            <div class="date-publication">Publié le: <%= article.date_publication.toISOString().split('T')[0] %></div>
+            <p><%= article.contenu %></p>
+        </article>
+    <% }); %>
+</body>
+</html>
